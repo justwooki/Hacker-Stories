@@ -45,7 +45,7 @@ const App = () => {
   )
 
   return (
-    <div>
+    <>
       <h1>My Hacker Stories</h1>
 
       {<Search search={searchTerm} onSearch={handleSearch} />}
@@ -53,12 +53,12 @@ const App = () => {
       <hr />
 
       <List list={searchedStories} />
-    </div>
+    </>
   )
 }
 
 const Search = ({ search, onSearch }) => (
-  <div>
+  <>
     <label htmlFor='search'>Search: </label>
     <input
       id='search'
@@ -66,7 +66,7 @@ const Search = ({ search, onSearch }) => (
       value={search}
       onChange={onSearch}
     />
-  </div>
+  </>
 )
 
 const List = ({ list }) => (
