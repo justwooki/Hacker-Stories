@@ -2,7 +2,6 @@ import * as React from 'react'
 import './App.css'
 
 const App = () => {
-  console.log('App renders')
   const stories = [
     {
       title: 'React',
@@ -21,12 +20,16 @@ const App = () => {
       objectID: 1,
     }
   ]
+  
+  const handleSearch = (event) => {
+    console.log(event.target.value)
+  }
 
   return (
     <div>
       <h1>My Hacker Stories</h1>
 
-      {<Search />}
+      {<Search onSearch={handleSearch} />}
 
       <hr />
 
@@ -35,12 +38,12 @@ const App = () => {
   )
 }
 
-const Search = () => {
-  console.log('Search renders')
+const Search = (props) => {
   const [searchTerm, setSearchTerm] = React.useState('')
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value)
+    props.onSearch(event)
   }
 
   return (
@@ -56,7 +59,6 @@ const Search = () => {
 }
 
 const List = (props) => {
-  console.log('List renders')
   return (
     <ul>
       {props.list.map((item) => (
@@ -67,7 +69,6 @@ const List = (props) => {
 }
 
 const Item = (props) => {
-  console.log('Item renders')
   return(
     <li>
       <span>
