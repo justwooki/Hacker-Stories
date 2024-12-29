@@ -57,10 +57,7 @@ const App = () => {
     isError: false,
   });
 
-  React.useEffect(() => {
-    // if 'searchTerm' is not present
-    // e.g. null, empty string, undefined
-    // do nothing
+  const handleFetchStories = React.useCallback(() => {
     if (!searchTerm) return
 
     dispatchStories({ type: "STORIES_FETCH_INIT" });
@@ -74,7 +71,11 @@ const App = () => {
         });
       })
       .catch(() => dispatchStories({ type: "STORIES_FETCH_FAILURE" }));
-  }, [searchTerm]);
+  }, [searchTerm])
+
+  React.useEffect(() => {
+    handleFetchStories()
+  }, [handleFetchStories]);
 
   const handleRemoveStory = (item) => {
     dispatchStories({
