@@ -40,6 +40,7 @@ const App = () => {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value)
   }
+
   const searchedStories = stories.filter((story) =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
@@ -48,12 +49,13 @@ const App = () => {
     <>
       <h1>My Hacker Stories</h1>
 
-      {<InputWithLabel
+      <InputWithLabel
         id ='search'
-        label='Search'
         value={searchTerm}
         onInputChange={handleSearch}
-      />}
+      >
+        <strong>Search:</strong>
+      </InputWithLabel>
 
       <hr />
 
@@ -64,13 +66,13 @@ const App = () => {
 
 const InputWithLabel = ({
   id,
-  label,
   value,
   type = 'text',
-  onInputChange
+  onInputChange,
+  children,
 }) => (
   <>
-    <label htmlFor={id}>{label}</label>
+    <label htmlFor={id}>{children}</label>
     <input
       id={id}
       type={type}
