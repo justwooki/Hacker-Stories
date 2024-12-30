@@ -1,6 +1,7 @@
 import * as React from "react";
 import axios from "axios";
-import "./App.css";
+import clsx from 'clsx';
+import styles from "./App.module.css";
 
 const storiesReducer = (state, action) => {
   switch (action.type) {
@@ -97,8 +98,8 @@ const App = () => {
   };
 
   return (
-    <>
-      <h1>My Hacker Stories</h1>
+    <div className={styles.container}>
+      <h1 className={styles.headlinePrimary}>My Hacker Stories</h1>
 
       <SearchForm
         searchTerm={searchTerm}
@@ -115,12 +116,12 @@ const App = () => {
       ) : (
         <List list={stories.data} onRemoveItem={handleRemoveStory} />
       )}
-    </>
+    </div>
   );
 };
 
 const SearchForm = ({ searchTerm, onSearchInput, onSearchSubmit }) => (
-  <form onSubmit={onSearchSubmit}>
+  <form onSubmit={onSearchSubmit} className={styles.searchForm}>
     <InputWithLabel
       id="search"
       value={searchTerm}
@@ -130,7 +131,11 @@ const SearchForm = ({ searchTerm, onSearchInput, onSearchSubmit }) => (
       <strong>Search:</strong>
     </InputWithLabel>
 
-    <button type="submit" disabled={!searchTerm}>
+    <button
+      type="submit"
+      disabled={!searchTerm}
+      className={clsx(styles.button, styles.buttonLarge)}
+    >
       Submit
     </button>
   </form>
@@ -154,7 +159,9 @@ const InputWithLabel = ({
 
   return (
     <>
-      <label htmlFor={id}>{children}</label>
+      <label htmlFor={id} className={styles.label}>
+        {children}
+      </label>
       &nbsp;
       <input
         ref={inputRef}
@@ -162,6 +169,7 @@ const InputWithLabel = ({
         type={type}
         value={value}
         onChange={onInputChange}
+        className={styles.input}
       />
     </>
   );
@@ -179,14 +187,14 @@ const Item = ({ item, onRemoveItem }) => {
   const { title, url, author, num_comments, points } = item;
 
   return (
-    <li>
-      <span>
+    <li className={styles.item}>
+      <span style={{ width: '40%' }}>
         <a href={url}>{title}</a>
       </span>
-      <span>{author}</span>
-      <span>{num_comments}</span>
-      <span>{points}</span>
-      <span>
+      <span style={{ width: '30%' }}>{author}</span>
+      <span style={{ width: '10%' }}>{num_comments}</span>
+      <span style={{ width: '10%' }}>{points}</span>
+      <span style={{ width: '10%' }}>
         <button type="button" onClick={() => onRemoveItem(item)}>
           Dismiss
         </button>
